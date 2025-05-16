@@ -1,19 +1,16 @@
 import express from 'express';
+import authRoutes from './routes/auth.route.js';
+import { ENV_VARS } from './config/envVars.js';
+import { connectDB } from './config/db.js';
 
 const app = express();
+const PORT = ENV_VARS.PORT;
 
-app.get('/api/v1/signup', (req, res) => {
-  res.send('Signup Route');
-});
+app.use(express.json()); // will allow access req.body
 
-app.get('/api/v1/login', (req, res) => {
-  res.send('Login Route');
-});
+app.use("/api/v1/auth", authRoutes);
 
-app.get('/api/v1/logout', (req, res) => {
-  res.send('Logout Route');
-});
-
-app.listen(3000, () => {
-  console.log(`Server is running on http://localhost:3000`);
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:` + PORT);
+  connectDB();
 });
