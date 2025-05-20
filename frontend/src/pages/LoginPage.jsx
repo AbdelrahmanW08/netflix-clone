@@ -1,13 +1,16 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import { useAuthStore } from '../store/authUser';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSignup = (e) => {
+  const {login} = useAuthStore();
+
+  const handleLogin = (e) => {
     e.preventDefault();
-    console.log(email, password);
+    login({email, password});
   };
 
   return (
@@ -22,7 +25,7 @@ const LoginPage = () => {
         <div className='w-full max-w-md p-8 space-y-6 bg-black/60 rounded-lg shadow-md'>
           <h1 className='text-center text-white text-2xl font-bold mb-4'>Log in</h1>
 
-          <form className='space-y-4' onSubmit={handleSignup}>
+          <form className='space-y-4' onSubmit={handleLogin}>
             <div>
               <label htmlFor='email' className='text-sm font-medium text-gray-300 block'>Email</label>
 
